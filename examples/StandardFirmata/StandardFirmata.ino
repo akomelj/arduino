@@ -42,6 +42,9 @@
 // the minimum interval for sampling analog input
 #define MINIMUM_SAMPLING_INTERVAL   1
 
+// set default digital pin state to HIGH, output
+#define INITIAL_DIGITAL_PIN_HIGH    1
+
 
 /*==============================================================================
  * GLOBAL VARIABLES
@@ -730,6 +733,10 @@ void systemResetCallback()
     } else if (IS_PIN_DIGITAL(i)) {
       // sets the output to 0, configures portConfigInputs
       setPinModeCallback(i, OUTPUT);
+
+#ifdef INITIAL_DIGITAL_PIN_HIGH
+      setPinValueCallback(i, HIGH);
+#endif    // INITIAL_DIGITAL_PIN_HIGH
     }
 
     servoPinMap[i] = 255;
